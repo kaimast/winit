@@ -74,10 +74,10 @@ features = [
 ]
 
 [target.'cfg(any(target_os = "linux", target_os = "dragonfly", target_os = "freebsd", target_os = "openbsd", target_os = "netbsd"))'.dependencies]
-wayland-client = { version = "0.23.0", features = [ "dlopen", "egl", "cursor", "eventloop"] }
-mio = "0.6"
+wayland-client = { version = "0.25" }# features = [ "dlopen", "egl", "cursor", "eventloop"] }
+mio = "0.7"
 mio-extras = "2.0"
-smithay-client-toolkit = "^0.6.6"
+smithay-client-toolkit = "^0.7"
 x11-dl = "2.18.3"
 percent-encoding = "2.0"
 
