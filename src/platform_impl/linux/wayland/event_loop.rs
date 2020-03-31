@@ -8,7 +8,7 @@ use std::{
     time::{Duration, Instant},
 };
 
-use mio::{Events, Poll, PollOpt, Ready, Token};
+use mio::{Events, Poll, Interest, Token};
 
 use mio_extras::channel::{channel, Receiver, SendError, Sender};
 
@@ -314,7 +314,7 @@ impl<T: 'static> EventLoop<T> {
 
         let sink = EventsSink::new(kbd_sender);
 
-        poll.register(&kbd_channel, KBD_TOKEN, Ready::readable(), PollOpt::level())
+        poll.register(&kbd_channel, KBD_TOKEN, Interest::readable(), PollOpt::level())
             .unwrap();
 
         let pointer_constraints_proxy = Arc::new(Mutex::new(None));
@@ -404,7 +404,7 @@ impl<T: 'static> EventLoop<T> {
         )
         .unwrap();
 
-        poll.register(&event_queue, EVQ_TOKEN, Ready::readable(), PollOpt::level())
+        poll.register(&event_queue, EVQ_TOKEN, Interest::readable(), PollOpt::level())
             .unwrap();
 
         let (user_sender, user_channel) = channel();
@@ -412,8 +412,7 @@ impl<T: 'static> EventLoop<T> {
         poll.register(
             &user_channel,
             USER_TOKEN,
-            Ready::readable(),
-            PollOpt::level(),
+            Interest::readable()
         )
         .unwrap();
 
